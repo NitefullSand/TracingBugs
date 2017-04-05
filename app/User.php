@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Collection;
 
 class User extends Authenticatable
 {
@@ -38,6 +39,25 @@ class User extends Authenticatable
      */
     public function organization()
     {
-        return $this->belongsToMany('App\Organizations', 'user_organizations', 'user_id', 'organization_id');
+        return $this->belongsToMany('App\Organization', 'user_organizations', 'user_id', 'organization_id');
+    }
+
+    protected $nowOrg = NULL;
+
+    public function getNowOrg()
+    {
+        if($this->nowOrg == NULL){
+            if ($this->organization->count() > 0) {
+                $this->nowOrg = $this->organization->first();
+            } else {
+                $this->nowOrg = new Organization;
+                $this->nowOrg->name = "";
+            }
+        }
+        return $this->nowOrg;
+    }
+    public function setNowOrg($org)
+    {
+        $this->nowOrg = $org;
     }
 }

@@ -36,29 +36,31 @@
                                 
                     @if (!Auth::guest())
                     <!-- Right Side Of Navbar Organization menu-->
-                    <ul class="nav navbar-nav navbar-left">
+                    <ul class="nav navbar-nav">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 组织
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
+                                <!-- 遍历当前用户的所有组织，展示组织的名字 -->
+                                <!-- 点击组织名链接到"/organization/该组织的id/projects"页面 -->
                                 @foreach (Auth::user()->organization as $organ)
-                                    <li><a href="#">{{ $organ->name }}</a></li>
+                                    <li><a href="/organization/{{ $organ->id }}/projects">{{ $organ->name }}</a></li>
                                 @endforeach
                                     <li class="divider"></li>
                                     <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                        <a href="/createOrganization">
                                             创建组织
                                         </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
                                     </li>
-                            </ui>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/organization/{{ Auth::user()->getNowOrg()->id }}/projects"> 
+                            <!-- 展示当前用户当前选中的组织名 -->
+                            {{ Auth::user()->getNowOrg()->name }}
+                            </a>
                         </li>
                     </ul>
                     @endif

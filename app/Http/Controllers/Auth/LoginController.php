@@ -29,7 +29,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -43,11 +43,12 @@ class LoginController extends Controller
 
     /**
      * @param  Request
+     * 重新实现logout方法，重定向到主界面
      * overwrite logout
      */
     public function logout(Request $request)
     {
         $this->performLogout($request);
-        return redirect('/home');
+        return redirect('/');
     }
 }
