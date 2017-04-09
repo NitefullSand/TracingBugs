@@ -32,7 +32,11 @@ class ProController extends Controller
     public function show($id)
     {
         $project = Project::whereId($id)->firstOrFail();
-        return view('project/project')->with('project', $project);
+        if($project->tasks->count() > 0) {
+            $firstTask = $project->tasks->first();
+            return redirect('project/'.$id.'/task/'.$firstTask->id);
+        }
+        return view('project/project')->with('project', $project)->with('showTask', '');
     }
 
     /**

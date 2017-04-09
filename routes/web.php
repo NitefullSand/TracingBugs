@@ -40,6 +40,6 @@ Route::get('/project/{id}', 'Project\ProController@show');
 Route::get('/project_create', 'Project\ProController@create');
 Route::post('/project_store', 'Project\ProController@store');
 
-Route::get('/project/{project}/task/{id}', 'Task\TaskController@show');
-Route::get('/project/{project}/task_create', 'Task\TaskController@create');
-Route::Post('/project/{project}/task_store', 'Task\TaskController@store');
+Route::get('/project/{pId}/task/{id}', 'Task\TaskController@show');
+Route::get('/project/{pId}/task_create', 'Task\TaskController@create');
+Route::Post('/project/{pId}/task_store', 'Task\TaskController@store');

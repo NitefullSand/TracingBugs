@@ -60,4 +60,9 @@ class User extends Authenticatable
     {
         $this->nowOrg = $org;
     }
+
+    public function task()
+    {
+        return $this->belongsToMany('App\Task', 'user_tasks', 'user_id', 'task_id');
+    }
 }

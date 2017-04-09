@@ -26,6 +26,7 @@ class Project extends Model
      */
     public function tasks()
     {
-        return $this->hasMany('App\Task');
+        // 最新修改的排在前面
+        return $this->hasMany('App\Task')->orderBy('updated_at', 'desc');
     }
 }

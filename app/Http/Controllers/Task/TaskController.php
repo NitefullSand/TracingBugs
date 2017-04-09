@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Task;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateTaskRequest;
+use App\Project;
 use App\Task;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -35,10 +36,11 @@ class TaskController extends Controller
      * @param  int $id task'id
      * @return view     显示任务的页面
      */
-    public function show($id)
+    public function show($pId, $id)
     {
+        $project = Project::whereId($pId)->firstOrFail();
         $task = Task::whereId($id)->firstOrFail();
-        return view('task/task')->with('task', $task);
+        return view('project/project')->with('project', $project)->with('showTask', $task);
     }
 
     /**
@@ -46,7 +48,7 @@ class TaskController extends Controller
      * 数据通过 old 方法回写到表单中。
      * @return view 创建任务页面
      */
-    public function create($project)
+    public function create($pId)
     {
     	$data = [];
         foreach ($this->fields as $field => $default) {
@@ -56,11 +58,14 @@ class TaskController extends Controller
         if($data['deadline'] == '') {
         	$data['deadline'] = Carbon::now()->addDay(1)->toDateTimeString();
         }
-        $data['project_id'] = $project;
+        $data['project_id'] = $pId;
+
+        $project = Project::whereId($pId)->firstOrFail();
+        $data['project'] = $project;
         return view('task/create', $data);
     }
 
-    public function store(CreateTaskRequest $request, $project)
+    public function store(CreateTaskRequest $request, $pId)
     {
         DB::beginTransaction();
         $task = new Task;
@@ -80,6 +85,6 @@ class TaskController extends Controller
             echo $e->getCode();
         }
 
-        return redirect('/project/'.$project);
+        return redirect('/project/'.$pId.'/task/'.$task->id);
     }
 }

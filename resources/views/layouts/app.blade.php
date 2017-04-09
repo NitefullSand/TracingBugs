@@ -11,7 +11,10 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 
     <!-- Scripts -->
     <script>
@@ -56,12 +59,14 @@
                                     </li>
                             </ul>
                         </li>
+                        @if (Auth::user()->organization->count() > 0)
                         <li>
                             <a href="/organization/{{ Auth::user()->getNowOrg()->id }}/projects"> 
                             <!-- 展示当前用户当前选中的组织名 -->
                             {{ Auth::user()->getNowOrg()->name }}
                             </a>
                         </li>
+                        @endif
                     </ul>
                     @endif
                 </div>
@@ -108,8 +113,5 @@
 
         @yield('content')
     </div>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
