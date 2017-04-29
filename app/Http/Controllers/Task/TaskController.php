@@ -16,9 +16,13 @@ class TaskController extends Controller
     protected $fields = [
     	'name' => '',
     	'description' => '',
-    	'priority' => '',
-    	'deadline' => '',
+    	'begin_at' => '',
+        'end_at' => '',
+        'version' => '',
+        'module' => '',
+        'type' => '',
     	'project_id' => 0,
+        'state' => '',
     ];
 
     /**
@@ -40,7 +44,7 @@ class TaskController extends Controller
     {
         $project = Project::whereId($pId)->firstOrFail();
         $task = Task::whereId($id)->firstOrFail();
-        return view('project/project')->with('project', $project)->with('showTask', $task);
+        return view('project/project')->with('project', $project)->with('task', $task);
     }
 
     /**
@@ -54,9 +58,13 @@ class TaskController extends Controller
         foreach ($this->fields as $field => $default) {
             $data[$field] = old($field, $default);
         }
-        // 如果没填deadline，则默认为明天此时
-        if($data['deadline'] == '') {
-        	$data['deadline'] = Carbon::now()->addDay(1)->toDateTimeString();
+        // 如果没填end_at，则默认为明天此时
+        if($data['begin_at'] == '') {
+            $data['begin_at'] = Carbon::now()->toDateTimeString();
+        }
+        // 如果没填end_at，则默认为明天此时
+        if($data['end_at'] == '') {
+        	$data['end_at'] = Carbon::now()->addDay(1)->toDateTimeString();
         }
         $data['project_id'] = $pId;
 
@@ -73,6 +81,7 @@ class TaskController extends Controller
 		    foreach (array_keys($this->fields) as $field) {
 		        $task->$field = $request->get($field);
 		    }
+            $task->state = '新建';
 			$task->save();
 
 			$user_id = Auth::user()->id;

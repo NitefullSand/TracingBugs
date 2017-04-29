@@ -13,17 +13,21 @@
 				<label for="description">描述: </label>
 				<input id="description" type="text" name="description" value="{{ $description }}">
 				<br>
-				<label for="priority">优先级: </label>
-				<select id="priority" name="priority">
-				@foreach (array('普通','紧急','非常紧急') as $p)
-				<option @if($p == $priority) selected="selected" @endif>{{ $p }}</option>
-				@endforeach
-				</select>
+				<label for="begin_at">开始时间: </label>
+				<input id="begin_at" type="text" name="begin_at" value="{{ $begin_at }}">
 				<br>
-				<label for="deadline">截止时间: </label>
-				<input id="deadline" type="text" name="deadline" value="{{ $deadline }}">
+				<label for="end_at">截止时间: </label>
+				<input id="end_at" type="text" name="end_at" value="{{ $end_at }}">
+				<br>
+				<label for="version">所属版本: </label>
+				<input id="version" type="text" name="version" value="{{ $version }}">
+				<br>
+				<label for="module">所属模块: </label>
+				<input id="module" type="text" name="module" value="{{ $module }}">
+				<br>
+				<label for="type">任务类型: </label>
+				<input id="type" type="text" name="type" value="{{ $type }}">
 				<input id="project_id" type="hidden" name="project_id" value="{{ $project->id }}">
-				
 				<br>
 				<button type="submit" class="btn btn-primary">
 				    创建

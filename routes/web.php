@@ -15,6 +15,10 @@ use Illuminate\Auth\user;
 
 Auth::routes();
 
+Route::get('/home', function() {
+    return redirect("/");
+});
+
 Route::get('/', function () {
 	// 登陆过则展示项目
 	if (!Auth::guest()) {
@@ -43,3 +47,6 @@ Route::post('/project_store', 'Project\ProController@store');
 Route::get('/project/{pId}/task/{id}', 'Task\TaskController@show');
 Route::get('/project/{pId}/task_create', 'Task\TaskController@create');
 Route::Post('/project/{pId}/task_store', 'Task\TaskController@store');
+
+Route::get('/project/{pId}/task/{tId}/bug_edit/{bId}', 'Bug\BugController@edit');
+Route::Post('/project/{pId}/task/{tId}/bug_store/{bId}', 'Bug\BugController@store');

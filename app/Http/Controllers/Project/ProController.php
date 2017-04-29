@@ -36,7 +36,7 @@ class ProController extends Controller
             $firstTask = $project->tasks->first();
             return redirect('project/'.$id.'/task/'.$firstTask->id);
         }
-        return view('project/project')->with('project', $project)->with('showTask', '');
+        return view('project/project')->with('project', $project)->with('task', null);
     }
 
     /**

@@ -18,12 +18,13 @@ class CreateBugsTable extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('state');
+            $table->string('priority');
             $table->unsignedInteger('task_id');
             $table->foreign('task_id')->references('id')->on('tasks');
-            $table->unsignedInteger('creater');
-            $table->foreign('creater')->references('id')->on('users');
-            $table->unsignedInteger('closer')->nullable();
-            $table->foreign('closer')->references('id')->on('users');
+            $table->unsignedInteger('creator_id');
+            $table->foreign('creator_id')->references('id')->on('users');
+            $table->unsignedInteger('executor_id')->nullable();
+            $table->foreign('executor_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateTaskRequest extends FormRequest
+class CreateBugRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,7 @@ class CreateTaskRequest extends FormRequest
     {
         return [
             'name' => 'required | max:255',
-            'description' => 'required',
-            'project_id' => 'required',
+            'priority' => 'required',
         ];
     }
 }

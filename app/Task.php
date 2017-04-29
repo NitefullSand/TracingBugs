@@ -26,11 +26,11 @@ class Task extends Model
         return $this->belongsToMany('App\User', 'user_tasks', 'task_id', 'user_id')->withPivot('role', 'role');
     }
 
-    public function creater()
+    public function creator()
     {
         // 通过中间表字段过滤关联关系
-    	$creater = $this->belongsToMany('App\User', 'user_tasks', 'task_id', 'user_id')->wherePivot('role', '创建者')->first();
-    	return $creater;
+    	$creator = $this->belongsToMany('App\User', 'user_tasks', 'task_id', 'user_id')->wherePivot('role', '创建者')->first();
+    	return $creator;
     }
 
     public function developer()

@@ -19,9 +19,13 @@ class CreateTasksTable extends Migration
             $table->text('description')->nullable();
             $table->unsignedInteger('project_id');
             $table->foreign('project_id')->references('id')->on('projects');
-            $table->string('priority');
-            $table->timestamp('deadline')->nullable();
+            $table->timestamp('begin_at')->nullable();
+            $table->timestamp('end_at')->nullable();
             $table->timestamps();
+            $table->string('version')->nullable();
+            $table->string('module')->nullable();
+            $table->string('type')->nullable();
+            $table->string('state');
         });
     }
 

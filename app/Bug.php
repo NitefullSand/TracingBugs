@@ -19,17 +19,17 @@ class Bug extends Model
      * 创建者
      * @return [type] [description]
      */
-    public function creater()
+    public function creator()
     {
-    	return $this->hasOne('App\User', 'id', 'creater');
+    	return $this->hasOne('App\User', 'id', 'creator_id');
     }
 
     /**
-     * 关闭者
+     * 执行者
      * @return [type] [description]
      */
-    public function closer()
+    public function executor()
     {
-    	return $this->hasOne('App\User', 'id', 'closer');
+    	return $this->hasOne('App\User', 'id', 'executor_id');
     }
 }
