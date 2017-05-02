@@ -40,9 +40,17 @@ Route::get('/createOrganization', function() {
 });
 Route::Post('/createOrganization', 'Organization\OrgController@create');
 
+Route::get('/organization/{id}/users', 'Organization\OrgController@users');
+Route::get('/organization/{id}/user_add', 'Organization\OrgController@user_add');
+Route::get('/organization/{id}/user_del', 'Organization\OrgController@user_del');
+
 Route::get('/project/{id}', 'Project\ProController@show');
 Route::get('/project_create', 'Project\ProController@create');
 Route::post('/project_store', 'Project\ProController@store');
+
+Route::get('/project/{id}/users', 'Project\ProController@users');
+Route::get('/project/{id}/user_add', 'Project\ProController@user_add');
+Route::get('/project/{id}/user_del', 'Project\ProController@user_del');
 
 Route::get('/project/{pId}/task/{id}', 'Task\TaskController@show');
 Route::get('/project/{pId}/task_create', 'Task\TaskController@create');

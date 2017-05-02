@@ -44,7 +44,7 @@ class TaskController extends Controller
     {
         $project = Project::whereId($pId)->firstOrFail();
         $task = Task::whereId($id)->firstOrFail();
-        return view('project/project')->with('project', $project)->with('task', $task);
+        return view('project.show')->with('project', $project)->with('task', $task);
     }
 
     /**

@@ -1,5 +1,5 @@
 <div class="col-xs-3" >
-	<div class="row" style="height:35em; overflow:auto; position: relative;">
+	<div class="row">
 		<ul class="nav nav-pills nav-stacked">
 			@foreach ($project->tasks as $task)
 				<li class="active"><a href="/project/{{ $project->id }}/task/{{ $task->id }}">{{ $task->name }}</a></li>

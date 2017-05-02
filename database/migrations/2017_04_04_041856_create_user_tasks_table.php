@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserOrganizationsTable extends Migration
+class CreateUserTasksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateUserOrganizationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_organizations', function (Blueprint $table) {
+        Schema::create('user_tasks', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');            // 外键
-            $table->unsignedInteger('organization_id');
-            $table->foreign('organization_id')->references('id')->on('organizations');
-            $table->string('role');  
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedInteger('task_id');
+            $table->foreign('task_id')->references('id')->on('tasks');
+            $table->string('role');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateUserOrganizationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_organizations');
+        Schema::dropIfExists('user_tasks');
     }
 }

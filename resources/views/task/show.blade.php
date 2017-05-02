@@ -24,7 +24,7 @@
 		</thead>
 		<tbody>
 		@foreach($task->bugs as $bug)
-			<tr onclick="editBug({{ $bug->id }})" data-toggle="modal" data-target="#createBugModal">
+			<tr class="bugList" data-id="{{ $bug->id }}" data-toggle="modal" data-target="#createBugModal">
 				<th>{{ $bug->id }}</th>
 				<th>{{ $bug->name }}</th>
 				<th>{{ $bug->state }}</th>
@@ -38,19 +38,19 @@
 		@endforeach
 		</tbody>
 	</table>
-	<a data-toggle="modal" data-target="#createBugModal" onclick="editBug(0)">添加Bug</a>
+	<a id="a_bugAdd" data-id="0" data-toggle="modal" data-target="#createBugModal">添加Bug</a>
 </div>
 
 @if ($task != null)
 <!-- 模态框（Modal） -->
-<div class="modal fade" id="createBugModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="createBugModal" tabindex="-1" role="dialog" aria-labelledby="createBugModalTitle" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 					&times;
 				</button>
-				<h4 class="modal-title" id="myModalLabel">
+				<h4 class="modal-title" id="createBugModalTitle">
 					新建Bug
 				</h4>
 			</div>

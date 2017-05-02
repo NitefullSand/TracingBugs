@@ -30,7 +30,8 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
+        @section('topbar')
+        <nav class="navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
 
@@ -89,6 +90,14 @@
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
+                            
+                            @if(Auth::user()->organization->count() > 0)
+                                <li><a href="" id="orgUsersPanel" data-id="{{ Auth::user()->getNowOrg()->id }}" data-toggle="modal" data-target="#manageModal">组织成员</a></li>
+                                @if(Auth::user()->getNowOrg()->isCreator() || Auth::user()->getNowOrg()->isAdmin())
+                                <!-- <li><a href="" id="orgPanel" data-toggle="modal" data-target="#manageModal">组织管理</a></li> -->
+                                @endif
+                            @endif
+
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->name }}
@@ -115,8 +124,35 @@
                 </div>
             </div>
         </nav>
+        @show
 
         @yield('content')
+        
+        <!-- 模态框（Modal） -->
+        <div class="modal fade" id="manageModal" tabindex="-1" role="dialog" aria-labelledby="manageModalTitle" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="manageModalTitle">
+                            <!-- Modal title -->
+                        </h4>
+                    </div>
+                    <div class="modal-body" id="manageModalContent">
+                        <!-- Modal content -->
+                    </div>
+<!--                     <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                        <button type="button" class="btn btn-primary">
+                            提交更改
+                        </button>
+                    </div> -->
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
     </div>
 </body>
 </html>

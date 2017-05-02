@@ -30,11 +30,10 @@
 	    <label for="executor_id">执行者：</label>  
 		<select id="executor_id" name="executor_id" class="selectpicker bla bla bli" data-live-search="true" title="用户">
 			<option value="0">未指定</option>
-			@foreach(Auth::user()->getNowOrg()->user as $user)
+			@foreach($project->allUsers as $user)
 			<option value="{{ $user->id }}"
-			@if ($user->id == $executor_id)
-			selected="selected"
-			@endif>{{ $user->name }}</option>
+			@if ($user->id == $executor_id) selected="selected" @endif
+			>{{ $user->name }}</option>
 			@endforeach
 		</select>
 		

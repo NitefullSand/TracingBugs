@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Organization;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateOrgRequest;
 use App\Organization;
+use App\User;
 use App\UserOrganization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -70,6 +71,7 @@ class OrgController extends Controller
             $userOrg = new UserOrganization;
             $userOrg->user_id = Auth::user()->id;
             $userOrg->organization_id = $org->id;
+            $userOrg->role = "创建者";
             $isOk = $userOrg->save();
             if(!$isOk) {
                 throw new Exception("Save organization's info failed!", 2);
@@ -83,6 +85,55 @@ class OrgController extends Controller
 
         return redirect('/')
             ->withSuccess("The organization: '$org->name' was created!");
+    }
+
+    /**
+     * 返回组织所有成员列表视图
+     * @param  int $pId 项目id
+     * @return view      成员列表视图
+     */
+    public function users($oId)
+    {
+        $organization = Organization::find($oId);
+
+        return view('organization.users')->with('organization', $organization);
+    }
+
+    public function user_add(Request $request, $oId)
+    {
+        $user_email = $request->input('user_email');
+
+        $user = User::All()->where("email", $user_email)->first();
+
+        // 判断组织中是否已经存在该用户
+        if(UserOrganization::All()->where("user_id", $user->id)->where("organization_id", (int)$oId)->count() > 0){
+            return "false";
+        }
+
+        $role = $request->input('role');
+        
+        try {
+            $userOrg = new UserOrganization();
+            $userOrg->organization_id = (int)$oId;
+            $userOrg->user_id = $user->id;
+            $userOrg->role = $role;
+            $userOrg->save();
+            return 'true';
+        } catch (Exception $e) {
+            return 'false';
+        }
+    }
+
+    public function user_del(Request $request, $pId)
+    {
+        $rId = $request->input('rId');
+        try {
+            $userOrg = UserOrganization::find($rId);
+            $userOrg->delete();
+            return 'true';
+        } catch (Exception $e) {
+            return 'false';
+        }
     }
 }
 

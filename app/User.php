@@ -42,6 +42,15 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Organization', 'user_organizations', 'user_id', 'organization_id');
     }
 
+    /**
+     * 用户所有的project
+     * @return [type] [description]
+     */
+    public function projects()
+    {
+        return $this->belongsToMany('App\Projects', 'user_projects', 'user_id', 'project_id');
+    }
+
     protected $nowOrg = NULL;
 
     public function getNowOrg()
