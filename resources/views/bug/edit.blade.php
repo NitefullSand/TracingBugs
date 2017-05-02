@@ -18,7 +18,7 @@
 		</select>
 		<label for="state">状态: </label>
 		<select id="state" name="state">
-		@foreach (array('新建','验证中','修复中', '已修复', '已验证', '关闭') as $s)
+		@foreach (array('新建','验证中','修复中', '已修复', '关闭') as $s)
 		<option value="{{ $s }}"
 		@if ($s == $state)
 		selected="selected"
@@ -36,6 +36,18 @@
 			>{{ $user->name }}</option>
 			@endforeach
 		</select>
+
+		@if($bug != null)
+		<br>
+		<label>评论：</label>
+		<div class="bug-comments">
+			@foreach($bug->comments as $comment)
+			<span>
+				<p><b>{{ $comment->user->name }}:</b>{{$comment->content}} <i>——{{ $comment->created_at }}</i></p>
+			</span>
+			@endforeach
+		</div>
+		@endif
 		
 		<br>
 		<div class="modal-footer">

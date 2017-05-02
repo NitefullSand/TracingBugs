@@ -74,4 +74,12 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Task', 'user_tasks', 'user_id', 'task_id');
     }
+    /**
+     * 所有评论
+     * @return [type] [description]
+     */
+    public function comments()
+    {
+        return $this->hasMany('App\Comment')->orderBy('created_at');
+    }
 }

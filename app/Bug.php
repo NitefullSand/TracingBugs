@@ -32,4 +32,13 @@ class Bug extends Model
     {
     	return $this->hasOne('App\User', 'id', 'executor_id');
     }
+
+    /**
+     * 所有评论
+     * @return [type] [description]
+     */
+    public function comments()
+    {
+        return $this->hasMany('App\Comment')->orderBy('created_at');
+    }
 }
